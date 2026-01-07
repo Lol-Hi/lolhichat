@@ -3,8 +3,6 @@ package controllers
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"errors"
-	"gorm.io/gorm"
 	"backend/internal/helpers"
 	"backend/internal/dataaccess"
 )
@@ -25,13 +23,11 @@ func HandleLogin (c *gin.Context) {
 
 	user, dbErr := dataaccess.GetUser(payload.Username)
 	if dbErr != nil {
-		if errors.Is(dbErr, gorm.ErrRecordNotFound) {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Username not found"})
-			return
-		} else {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": dbErr.Error()})
-			return
-		}
+		c.JSON(http.StatusInternalServerError, gin.H{"error": dbErr.Error()})
+		return
+	}
+	if user == nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid Username"})
 		return
 	}
 
@@ -45,11 +41,14 @@ func HandleLogin (c *gin.Context) {
 		return
 	}
 
-	token, tokenErr := helpers.CreateToken(payload.Username)
+	userToken, refreshToken, tokenErr := helpers.CreateTokens(user.Username, user.ID)
 	if tokenErr != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": tokenErr.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"token": token})
+	c.JSON(http.StatusOK, gin.H{
+		"userToken": userToken,
+		"refreshToken": refreshToken,
+	})
 }

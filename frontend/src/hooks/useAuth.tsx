@@ -1,44 +1,54 @@
 import React, { createContext, useState, useEffect, useContext, ReactNode } from "react";
 
 interface AuthContextType {
-	user: string | null;
+	userToken: string | null;
+	refreshToken: string | null;
 	loading: boolean;
-	login: (token: string) => void;
+	login: (userToken: string, refreshToken: string) => void;
 	logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType>({
-	user: "",
+	userToken: "",
+	refreshToken: "",
 	loading: true,
 	login: () => null,
 	logout: () => null
 });
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [ user, setUser ] = useState("");
+  const [ userToken, setUser ] = useState("");
+	const [ refreshToken, setRefresh ] = useState("");
 	const [ loading, setLoading ] = useState(true);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user")
-		console.log(`auth level: adding user ${storedUser} to local user object`);
+    const storedUser = localStorage.getItem("user");
     if (storedUser) {
 			setUser(storedUser);
     }
+		const storedRefresh = localStorage.getItem("refresh");
+		if (storedRefresh) {
+			setRefresh(storedRefresh);
+		}
 		setLoading(false);
   }, []);
 
-  const login = (userToken: string) => {
+  const login = (userToken: string, refreshToken: string) => {
     setUser(userToken);
+		setRefresh(refreshToken);
 		localStorage.setItem("user", userToken);
+		localStorage.setItem("refresh", refreshToken);
   };
 
   const logout = () => {
     setUser("");
+		setRefresh("");
 		localStorage.removeItem("user");
+		localStorage.removeItem("refresh");
   };
 
   return (
-		<AuthContext.Provider value={{ user, loading, login, logout }}> 
+		<AuthContext.Provider value={{ userToken, refreshToken, loading, login, logout }}> 
 			{ !loading && children } 
 		</AuthContext.Provider>
 	);

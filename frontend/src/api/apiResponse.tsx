@@ -3,5 +3,10 @@ export interface ErrorResponse {
 }
 
 export interface LoginResponse {
-	token: string;
+	refreshToken: string;
+	userToken: string;
+}
+
+export interface HomeResponse {
+	username: string;
 }

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useAuth } from "../hooks/useAuth";
 
 const apiClient = axios.create({
 	baseURL: "http://localhost:8080",

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import apiClient from "../api/apiClient";
 import { AxiosError } from "axios";
 import { useNavigate } from 'react-router-dom';
 
@@ -8,15 +7,15 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Input from "@mui/material/Input";
 import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
 import { useAuth } from "../hooks/useAuth";
-import { isValidUsername, isValidPassword } from "../helpers/authChecks"
-import { ErrorResponse, LoginResponse } from "../api/apiResponse";
+import { useApiClient } from "../hooks/useApiClient";
+import { errorMessage } from "../helpers/errorMessage";
+import { LoginResponse } from "../api/apiResponse";
 
 function Login() {
 	const [username, setUsername] = useState("");
@@ -28,6 +27,7 @@ function Login() {
 
 	const navigate = useNavigate();
 	const { login } = useAuth();
+	const apiClient = useApiClient();
 
 	async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
@@ -39,21 +39,11 @@ function Login() {
 			const payload = JSON.stringify({username, password});
 			const response = await apiClient.post<LoginResponse>("/login", payload);
 			const contents = response.data;
-			
-			// localStorage.setItem("userToken", response.data);
-			// useLocalStorage("userToken", response.data);
-			login(contents.token);
-			setTimeout(() => navigate("/"), 500);
+			login(contents.userToken, contents.refreshToken);
+			setTimeout(() => navigate("/"), 1000);
 		} catch (e) {
 			const err = e as AxiosError;
-			if(err.response) {
-				const errorData = err.response.data as ErrorResponse;
-				setErrorMsg(`HTTP Error ${err.response.status}: ${errorData.error}`);
-			} else if(err.request) {
-				setErrorMsg(`Network Error: ${err.request}`);
-			} else {
-				setErrorMsg(`Other Error: ${err.message}`);
-			}
+			setErrorMsg(errorMessage(err));
 		}
 	}
 

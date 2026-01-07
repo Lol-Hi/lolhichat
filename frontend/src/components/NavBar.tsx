@@ -10,13 +10,13 @@ import Logout from "../pages/Logout";
 import { useAuth } from "../hooks/useAuth"
 
 function NavBar() {
-	const { user } = useAuth();
+	const { userToken } = useAuth();
 	return (
 		<AppBar position="static">
 			<Toolbar>
 				<Typography variant="h3" component="div" sx={{ flexGrow: 1 }}>Lol, Hi Chat!</Typography>
 				<Button color="inherit" href="/draft">New Post</Button>
-				{ !user
+				{ !userToken
 					? (<Button color="inherit" component={Link} to="/login">Login</Button>)
 					: (<Logout color="inherit" />)
 				}

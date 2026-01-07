@@ -7,7 +7,7 @@ const passwordMax = 30;
 
 export function isValidUsername(username: string): [boolean, string] {
 	if(username.length < usernameMin || username.length > usernameMax) {
-		return [false, "Username should be between ${usernameMin} and ${usernameMax} characters long"];
+		return [false, `Username should be between ${usernameMin} and ${usernameMax} characters long`];
 	}
 	if(!usernameRegex.test(username)) {
 		return [false, "Username should only contain alphanumeric characters"];
@@ -17,7 +17,7 @@ export function isValidUsername(username: string): [boolean, string] {
 
 export function isValidPassword(password: string): [boolean, string] {
 	if(password.length < passwordMin || password.length > passwordMax) {
-		return [false, "Password should be between ${passwordMin} and ${passwordMax} characters long"];
+		return [false, `Password should be between ${passwordMin} and ${passwordMax} characters long`];
 	}
 	if(!passwordRegex.test(password)) {
 		return [

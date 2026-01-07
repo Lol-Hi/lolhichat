@@ -9,7 +9,6 @@ import DraftPost from "./pages/DraftPost";
 
 import NavBar from "./components/NavBar";
 
-
 function App() {
   return (
 		<div className="App">
