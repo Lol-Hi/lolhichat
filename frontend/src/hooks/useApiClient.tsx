@@ -51,7 +51,7 @@ export function useApiClient() {
 			}
 		);
 		return () => apiClient.interceptors.response.eject(refreshInterceptor);
-	}, [userToken, refreshToken]);
+	}, [userToken, refreshToken, login]);
 	
 	return apiClient;
 }

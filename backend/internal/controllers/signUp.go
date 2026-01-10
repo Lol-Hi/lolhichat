@@ -26,12 +26,12 @@ func HandleSignUp (c *gin.Context) {
 		return
 	}
 	
-	_, dbErr1 := dataaccess.GetUser(payload.Username)
-	if dbErr1 == nil {
+	existingUser, dbErr1 := dataaccess.GetUser(payload.Username)
+	if existingUser != nil {
 		c.JSON(http.StatusConflict, gin.H{"error": "Username already exists"})
 		return
 	}
-	if !errors.Is(dbErr1, gorm.ErrRecordNotFound) {
+	if dbErr1 != nil && !errors.Is(dbErr1, gorm.ErrRecordNotFound) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": dbErr1.Error()})
 	}	
 
@@ -40,7 +40,7 @@ func HandleSignUp (c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": hashErr.Error()})
 		return
 	}
-	dbErr2 := dataaccess.CreateUser(payload.Username, passHash)
+	_, dbErr2 := dataaccess.CreateUser(payload.Username, passHash)
 	if dbErr2 != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": dbErr2.Error()})
 		return

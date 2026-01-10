@@ -12,7 +12,7 @@ function HomeNoLogin() {
 		<div>
 			<h1>Welcome to Lol, Hi Chat!</h1>
 			<p>
-				Log in <a href="/login">here</a> to see your favourite pages in this homescreen!
+				See what others are cooking when u <a href="/login">log in</a> to LolHiChat!
 			</p>
 		</div>
 	);
@@ -35,7 +35,7 @@ function HomeWithLogin(userToken: string) {
 			}
 		};
 		fetchUsername();
-	}, []);
+	}, [apiClient]);
 
 	if(errorMsg) {
 		return (<p> Error: { errorMsg }</p>);

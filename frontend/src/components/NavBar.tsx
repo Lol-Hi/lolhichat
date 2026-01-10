@@ -15,7 +15,7 @@ function NavBar() {
 		<AppBar position="static">
 			<Toolbar>
 				<Typography variant="h3" component="div" sx={{ flexGrow: 1 }}>Lol, Hi Chat!</Typography>
-				<Button color="inherit" href="/draft">New Post</Button>
+				<Button color="inherit" href="/newThread">New Thread</Button>
 				{ !userToken
 					? (<Button color="inherit" component={Link} to="/login">Login</Button>)
 					: (<Logout color="inherit" />)

@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
-import DraftPost from "./pages/DraftPost";
+import NewThread from "./pages/NewThread";
 
 import NavBar from "./components/NavBar";
 
@@ -18,7 +18,7 @@ function App() {
 					<Route path="/" element={<Home />} />
 					<Route path="/login" element={<Login />} />
 					<Route path="/signUp" element={<SignUp />} />
-					<Route path="/draft" element={<DraftPost />} />
+					<Route path="/newThread" element={<NewThread />} />
 				</Routes>
 			</BrowserRouter>
 		</div>

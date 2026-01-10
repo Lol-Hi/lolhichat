@@ -10,3 +10,7 @@ export interface LoginResponse {
 export interface HomeResponse {
 	username: string;
 }
+
+export interface NewThreadResponse {
+	urlCode: string;
+}

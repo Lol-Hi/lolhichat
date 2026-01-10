@@ -6,13 +6,16 @@ import (
 	"errors"
 )
 
-func CreateUser(username string, passHash string) error {
+func CreateUser(username string, passHash string) (*models.User, error) {
 	user := &models.User{
 		Username: username,
 		Passhash: passHash,
 	}
 	res := models.DB.Create(user)
-	return res.Error
+	if res.Error != nil {
+		return nil, res.Error
+	}
+	return user, nil
 }
 
 func GetUser(username string) (*models.User, error) {

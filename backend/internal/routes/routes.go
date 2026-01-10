@@ -25,6 +25,7 @@ func SetupRouter() *gin.Engine {
 	protected.Use(middleware.AuthMiddleware())
 	{
 		protected.GET("/home", controllers.HandleHomePage)
+		protected.POST("/newThread", controllers.HandleNewThread)
 	}
 
 	return router
