@@ -26,7 +26,7 @@ func HandleNewThread (c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, userErr.Error())
 	}
 
-	user, dbErr1 := dataaccess.GetUser(username)
+	user, dbErr1 := dataaccess.GetUserByName(username)
 	if dbErr1 != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": dbErr1.Error()})
 		return

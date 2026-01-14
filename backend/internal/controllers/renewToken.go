@@ -27,7 +27,7 @@ func HandleRenewToken (c *gin.Context) {
 		return
 	}
 
-	user, dbErr := dataaccess.GetUser(username)
+	user, dbErr := dataaccess.GetUserByName(username)
 	if dbErr != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": dbErr.Error()})
 		return

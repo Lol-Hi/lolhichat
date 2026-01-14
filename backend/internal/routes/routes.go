@@ -17,6 +17,10 @@ func SetupRouter() *gin.Engine {
 	
 	router.Use(middleware.SetupHeaders())
 	
+	router.GET("/viewThread/:urlCode", controllers.HandleViewThread)
+	// router.GET("/viewComment/:urlCode", controllers.HandleViewComment)
+	
+	router.POST("/search", controllers.HandleSearch)
 	router.POST("/login", controllers.HandleLogin)  
 	router.POST("/signUp", controllers.HandleSignUp)
 	router.POST("/renew", controllers.HandleRenewToken)

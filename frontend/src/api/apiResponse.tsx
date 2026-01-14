@@ -4,7 +4,7 @@ export interface ErrorResponse {
 
 export interface LoginResponse {
 	refreshToken: string;
-	userToken: string;
+	userToken: 		string;
 }
 
 export interface HomeResponse {
@@ -13,4 +13,19 @@ export interface HomeResponse {
 
 export interface NewThreadResponse {
 	urlCode: string;
+}
+
+export interface ViewThreadResponse {
+	topic: 				string;
+	description: 	string;
+	host: 				string;
+	createdAt: 		string;
+}
+
+export interface SearchResponse {
+	topic: 				string;
+	description: 	string;
+	host: 				string;
+	urlCode: 			string;
+	createdAt: 		string;
 }

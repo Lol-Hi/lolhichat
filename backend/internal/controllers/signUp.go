@@ -26,7 +26,7 @@ func HandleSignUp (c *gin.Context) {
 		return
 	}
 	
-	existingUser, dbErr1 := dataaccess.GetUser(payload.Username)
+	existingUser, dbErr1 := dataaccess.GetUserByName(payload.Username)
 	if existingUser != nil {
 		c.JSON(http.StatusConflict, gin.H{"error": "Username already exists"})
 		return

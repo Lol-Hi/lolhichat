@@ -6,6 +6,9 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import NewThread from "./pages/NewThread";
+import SearchResults from "./pages/SearchResults";
+import ViewThread from "./pages/ViewThread";
+import ViewComment from "./pages/ViewComment";
 
 import NavBar from "./components/NavBar";
 
@@ -19,6 +22,9 @@ function App() {
 					<Route path="/login" element={<Login />} />
 					<Route path="/signUp" element={<SignUp />} />
 					<Route path="/newThread" element={<NewThread />} />
+					<Route path="/search" element={<SearchResults />} />					
+					<Route path="/thread/:urlCode" element={<ViewThread />} />
+					<Route path="/post/:urlCode" element={<ViewComment />} />
 				</Routes>
 			</BrowserRouter>
 		</div>

@@ -21,7 +21,7 @@ func HandleLogin (c *gin.Context) {
 		return
 	}
 
-	user, dbErr := dataaccess.GetUser(payload.Username)
+	user, dbErr := dataaccess.GetUserByName(payload.Username)
 	if dbErr != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": dbErr.Error()})
 		return

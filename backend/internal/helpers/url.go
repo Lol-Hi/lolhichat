@@ -7,8 +7,8 @@ import (
 )
 
 type DecodedUrl struct {
-	id				int
-	pageType	string
+	ID				int
+	PageType	string
 }
 
 var squid *sqids.Sqids
@@ -62,8 +62,8 @@ func DecodeUrl(urlCode string) (*DecodedUrl, error) {
 	}
 
 	durl := &DecodedUrl{
-		id: did,
-		pageType: dpt,
+		ID: did,
+		PageType: dpt,
 	}
 
 	return durl, nil
