@@ -31,6 +31,10 @@ func SetupRouter() *gin.Engine {
 		protected.GET("/home", controllers.HandleHomePage)
 		protected.POST("/newThread", controllers.HandleNewThread)
 		protected.POST("/newComment", controllers.HandleNewComment)
+
+		protected.GET("/commentLiked/:urlCode", controllers.HandleCommentLikedStatus)
+		protected.POST("/likeComment/:urlCode", controllers.HandleLike)
+		protected.POST("/unlikeComment/:urlCode", controllers.HandleUnlike)
 	}
 
 	return router

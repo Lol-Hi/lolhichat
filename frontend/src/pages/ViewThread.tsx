@@ -50,7 +50,7 @@ function ViewThread() {
 					</Card>
 				));
 				setThreadComments(content.comments.map(res => (
-					<CommentCard tcResponse={res} />
+					<CommentCard tcResponse={res} key={res.urlCode}/>
 				)));
 			} catch (err) {
 				setErrorMsg(errorMessage(err as AxiosError));
@@ -69,16 +69,16 @@ function ViewThread() {
 
 	return (
 		<div className="viewThread">
-			<Box className="threadInfo" sx={{ p: 2 }}>
+			<Box className="threadInfo" sx={{ px: 2, py: 1 }}>
 				{ threadInfo }
 			</Box>
-			<Box className="draftComment" sx={{ p: 2 }}>
+			<Box className="draftComment" sx={{ px: 2, py: 1 }}>
 				<Typography component="h6" variant="h6" sx={{ textAlign: "left" }}>
 					Leave your mark!
 				</Typography>
 				<NewComment urlCode={urlCode} />
 			</Box>
-			<Box className="threadComments" sx={{ p: 2 }}>
+			<Box className="threadComments" sx={{ px: 2, py: 1 }}>
 				<Typography component="h6" variant="h6" sx={{ textAlign: "left" }}>
 					View all comments
 				</Typography>

@@ -39,7 +39,6 @@ function NewThreadWithLogin(userToken: string) {
 			const response = await apiClient.post<NewThreadResponse>("/api/newThread", payload);
 			const contents = response.data;
 			const urlCode = `/thread/${contents.urlCode}`;
-			console.log(`New thread at "${urlCode}"`);
 			setTimeout(() => navigate(urlCode), 1000);
 		} catch (e) {
 			const err = e as AxiosError;

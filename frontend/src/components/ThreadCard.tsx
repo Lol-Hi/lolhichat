@@ -14,7 +14,7 @@ function ThreadCard({ threadResponse }: { threadResponse: SearchResponse }) {
 	const navigate = useNavigate();
 	
 	return (
-		<Grid size={4} className="threadCard" id="{threadResponse.urlCode}">
+		<Grid size={4} className="threadCard" id={threadResponse.urlCode}>
 			<Card variant="outlined">
 				<CardActionArea onClick={() => navigate(`/thread/${threadResponse.urlCode}`)}>
 					<CardContent sx={{ textAlign: 'left' }}>

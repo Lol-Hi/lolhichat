@@ -27,7 +27,12 @@ export interface ThreadCommentResponse {
 	author:				string;
 	content:			string;
 	urlCode:			string;
+	likes:				number;
 	createdAt:		string;
+}
+
+export interface LikeStatusResponse {
+	isLiked: boolean;
 }
 
 export interface SearchResponse {

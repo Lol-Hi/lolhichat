@@ -31,11 +31,8 @@ function SearchResults() {
 			const payload = JSON.stringify({ query });
 			const response = await apiClient.post<SearchResponse[]>("/search", payload);
 			const contents = response.data;
-			contents.forEach(res => {
-				console.log(`Topic: ${res.topic} Description: ${res.description} Created at ${res.createdAt} by ${res.host}`);
-			});
 			setResults(contents.map(res => (
-				<ThreadCard threadResponse={res} />
+				<ThreadCard threadResponse={res} key={res.urlCode} />
 			)));
 		} catch (err) {
 			setErrorMsg(errorMessage(err as AxiosError));
@@ -63,8 +60,8 @@ function SearchResults() {
 	}
 
 	return (
-		<div className="SearchResults">
-			<Box component="form" onSubmit={handleSearch} sx={{ mb: 2 }}>
+		<div className="searchResults">
+			<Box component="form" onSubmit={handleSearch}>
 				<FormControl sx={{ width: "75%", textAlign: "left" }}>
 					<OutlinedInput fullWidth
 						id="search"
@@ -84,10 +81,12 @@ function SearchResults() {
 					</Typography>
 				</FormControl>
 			</Box>
-				
-			<Grid className="threadResults" container spacing={2}>
-				{ results }
-			</Grid>
+			
+			<Box className="threadResults" sx={{ p: 2 }}>
+				<Grid container spacing={2}>
+					{ results }
+				</Grid>
+			</Box>
 		</div>
 	);
 }

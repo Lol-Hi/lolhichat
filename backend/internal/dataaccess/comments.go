@@ -4,11 +4,11 @@ import (
 	"backend/internal/models"
 )
 
-func CreateComment(content string, userID int, commentID int) (*models.Comment, error) {
+func CreateComment(content string, userID int, threadID int) (*models.Comment, error) {
 	comment := &models.Comment{
 		Content: 	content,
 		UserID:		userID,
-		ThreadID:	commentID,
+		ThreadID:	threadID,
 	}
 	res := models.DB.Create(comment)
 	if res.Error != nil {

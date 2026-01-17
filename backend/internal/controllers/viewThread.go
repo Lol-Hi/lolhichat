@@ -9,7 +9,7 @@ import (
 
 func HandleViewThread(c *gin.Context) {
 	urlCode := c.Param("urlCode")
-	
+
 	decoded, urlErr := helpers.DecodeUrl(urlCode)
 	if urlErr != nil {
 		c.JSON(http.StatusNotFound, urlErr.Error())
@@ -18,30 +18,30 @@ func HandleViewThread(c *gin.Context) {
 		c.JSON(http.StatusNotFound, "Wrong page type for URL code")
 	}
 
-	threadInfo, dbErr1 := dataaccess.GetThreadInfo(decoded.ID)
-	if dbErr1 != nil {
-		c.JSON(http.StatusInternalServerError, dbErr1.Error())
+	threadInfo, dbErr3 := dataaccess.GetThreadInfo(decoded.ID)
+	if dbErr3 != nil {
+		c.JSON(http.StatusInternalServerError, dbErr3.Error())
 	}
 
-	host, dbErr2 := dataaccess.GetUserByID(threadInfo.HostID)
-	if dbErr2 != nil {
-		c.JSON(http.StatusInternalServerError, dbErr2.Error())
+	host, dbErr4 := dataaccess.GetUserByID(threadInfo.HostID)
+	if dbErr4 != nil {
+		c.JSON(http.StatusInternalServerError, dbErr4.Error())
 	}
 	hostname := ""
 	if host != nil {
 		hostname = host.Username
 	}
 
-	listComments, dbErr3 := dataaccess.GetCommentsFromThread(threadInfo.ID)
-	if dbErr3 != nil {
-		c.JSON(http.StatusInternalServerError, dbErr3.Error())
+	listComments, dbErr5 := dataaccess.GetCommentsFromThread(threadInfo.ID)
+	if dbErr5 != nil {
+		c.JSON(http.StatusInternalServerError, dbErr5.Error())
 	}
 
 	threadComments := make([]gin.H, len(listComments))
 	for i, cmt := range listComments {
-		author, dbErr4 := dataaccess.GetUserByID(cmt.UserID)
-		if dbErr4 != nil {
-			c.JSON(http.StatusInternalServerError, dbErr4.Error())
+		author, dbErr6 := dataaccess.GetUserByID(cmt.UserID)
+		if dbErr6 != nil {
+			c.JSON(http.StatusInternalServerError, dbErr6.Error())
 		}
 
 		authorname := "";
@@ -53,11 +53,18 @@ func HandleViewThread(c *gin.Context) {
 		if urlErr != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": urlErr.Error()})
 		}
+		
+		numLikes, dbErr7 := dataaccess.CommentLikes(cmt.ID);
+		if dbErr7 != nil {
+			c.JSON(http.StatusInternalServerError, dbErr7.Error())
+		}
+
 
 		threadComments[i] = gin.H{
 			"content": 		cmt.Content,
 			"author":			authorname,
 			"urlCode":		urlCode,
+			"likes":			numLikes,
 			"createdAt":	cmt.CreatedAt,
 		}
 	}

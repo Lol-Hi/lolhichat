@@ -11,6 +11,5 @@ func HandleHomePage(c *gin.Context) {
 	if userErr != nil {
 		c.JSON(http.StatusInternalServerError, userErr.Error())
 	}
-
 	c.JSON(http.StatusOK, gin.H{"username": username})
 }
