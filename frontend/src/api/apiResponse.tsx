@@ -20,6 +20,14 @@ export interface ViewThreadResponse {
 	description: 	string;
 	host: 				string;
 	createdAt: 		string;
+	comments:			ThreadCommentResponse[];
+}
+
+export interface ThreadCommentResponse {
+	author:				string;
+	content:			string;
+	urlCode:			string;
+	createdAt:		string;
 }
 
 export interface SearchResponse {

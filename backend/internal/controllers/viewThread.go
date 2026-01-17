@@ -32,10 +32,41 @@ func HandleViewThread(c *gin.Context) {
 		hostname = host.Username
 	}
 
+	listComments, dbErr3 := dataaccess.GetCommentsFromThread(threadInfo.ID)
+	if dbErr3 != nil {
+		c.JSON(http.StatusInternalServerError, dbErr3.Error())
+	}
+
+	threadComments := make([]gin.H, len(listComments))
+	for i, cmt := range listComments {
+		author, dbErr4 := dataaccess.GetUserByID(cmt.UserID)
+		if dbErr4 != nil {
+			c.JSON(http.StatusInternalServerError, dbErr4.Error())
+		}
+
+		authorname := "";
+		if author != nil {
+			authorname = author.Username
+		}
+
+		urlCode, urlErr := helpers.EncodeUrl(cmt.ID, "comment")
+		if urlErr != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": urlErr.Error()})
+		}
+
+		threadComments[i] = gin.H{
+			"content": 		cmt.Content,
+			"author":			authorname,
+			"urlCode":		urlCode,
+			"createdAt":	cmt.CreatedAt,
+		}
+	}
+
  	c.JSON(http.StatusOK, gin.H{
 		"topic": 				threadInfo.Topic,
 		"description":	threadInfo.Description,
 		"host":					hostname,									
 		"createdAt":		threadInfo.CreatedAt,
+		"comments":			threadComments,
 	})
 }

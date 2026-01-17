@@ -14,7 +14,7 @@ function NavBar() {
 	const { userToken } = useAuth();
 	return (
 		<div className="navBar">
-			<AppBar position="static">
+			<AppBar position="static" sx={{ mb: 4 }}>
 				<Toolbar>
 					<Typography variant="h3" component="div" sx={{ flexGrow: 1 }}>Lol, Hi Chat!</Typography>
 					<QuickSearchBar/>

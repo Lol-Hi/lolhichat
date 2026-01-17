@@ -30,6 +30,7 @@ func SetupRouter() *gin.Engine {
 	{
 		protected.GET("/home", controllers.HandleHomePage)
 		protected.POST("/newThread", controllers.HandleNewThread)
+		protected.POST("/newComment", controllers.HandleNewComment)
 	}
 
 	return router

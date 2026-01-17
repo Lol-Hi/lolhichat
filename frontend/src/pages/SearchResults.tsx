@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { AxiosInstance, AxiosError } from "axios";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import ReactTimeAgo from "react-time-ago";
+import { useSearchParams } from "react-router-dom";
 
 import Box from "@mui/material/Box";
+import FormControl from "@mui/material/FormControl";
+import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
-import Input from "@mui/material/Input";
+import OutlinedInput from "@mui/material/OutlinedInput";
 import Typography from "@mui/material/Typography";
 import SearchIcon from "@mui/icons-material/Search";
+
+import ThreadCard from "../components/ThreadCard";
+
 import { useApiClient } from "../hooks/useApiClient";
 
 import { SearchResponse } from "../api/apiResponse";
@@ -21,7 +25,6 @@ function SearchResults() {
 	const [errorMsg, setErrorMsg] = useState("");
 
 	const apiClient = useApiClient();
-	const navigate = useNavigate();
 
 	async function fetchSearch() {
 		try {
@@ -32,14 +35,7 @@ function SearchResults() {
 				console.log(`Topic: ${res.topic} Description: ${res.description} Created at ${res.createdAt} by ${res.host}`);
 			});
 			setResults(contents.map(res => (
-				<Box 
-					id={res.urlCode} 
-					onClick={() => navigate(`/thread/${res.urlCode}`)}
-				>
-					<Typography component="h6" variant="h6">{res.topic}</Typography>
-					<p>{res.description}</p>
-					<p>created by {res.host} <ReactTimeAgo date={new Date(res.createdAt)} /></p>
-				</Box>	
+				<ThreadCard threadResponse={res} />
 			)));
 		} catch (err) {
 			setErrorMsg(errorMessage(err as AxiosError));
@@ -68,24 +64,30 @@ function SearchResults() {
 
 	return (
 		<div className="SearchResults">
-			<Box component="form" onSubmit={handleSearch}>
-				<Input 
-					id="search"
-					type="search"
-					name="search"
-					value={query}
-					color="primary"
-					onChange={e => setQuery(e.target.value)}
-				/>
-				<IconButton type="submit">
-					<SearchIcon />
-				</IconButton>
+			<Box component="form" onSubmit={handleSearch} sx={{ mb: 2 }}>
+				<FormControl sx={{ width: "75%", textAlign: "left" }}>
+					<OutlinedInput fullWidth
+						id="search"
+						type="search"
+						name="search"
+						value={query}
+						color="primary"
+						onChange={e => setQuery(e.target.value)}
+						endAdornment={
+							<IconButton type="submit">
+								<SearchIcon />
+							</IconButton>
+						}
+					/>
+					<Typography variant="body2" sx={{ color: "text.secondary" }}>
+						Showing { results.length } search results for "{ origQuery }"
+					</Typography>
+				</FormControl>
 			</Box>
-			<p>Showing { results.length } search results for "{ origQuery }"</p>
-			
-			<div className="threadResults">
+				
+			<Grid className="threadResults" container spacing={2}>
 				{ results }
-			</div>
+			</Grid>
 		</div>
 	);
 }

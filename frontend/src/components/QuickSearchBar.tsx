@@ -22,10 +22,12 @@ function QuickSearchBar() {
 					name="search"
 					placeholder="Quick Search"
 					color="primary"
+					endAdornment={
+						<IconButton type="submit">
+							<SearchIcon />
+						</IconButton>
+					}
 				/>
-				<IconButton type="submit">
-					<SearchIcon />
-				</IconButton>
 			</Box>
 		</div>
 	);
