@@ -18,6 +18,11 @@ import { useApiClient } from "../hooks/useApiClient";
 import { errorMessage } from "../helpers/errorMessage";
 import { NewThreadResponse } from "../api/apiResponse";
 
+/**
+ * A page for logged in users to create a new discussion thread.
+ * @param {string} userToken The JWT user token of the current user session.
+ * @returns 
+ */
 function NewThreadWithLogin(userToken: string) {
 	const navigate = useNavigate();
 	const apiClient = useApiClient();
@@ -28,6 +33,14 @@ function NewThreadWithLogin(userToken: string) {
 	const [ topicError, setTopicError ] = useState(false);
 	const [ descError, setDescError ] = useState(false);
 
+	/**
+	 * New thread creation handler.
+	 * 
+	 * Sends a new thread POST request to the backend,
+	 * and reroutes the user to the newly created thread page.
+	 * 
+	 * @param {React.FormEvent<HTMLFormElement>} event The form submission event that triggered this function.
+	 */
 	async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		setErrorMsg("");
@@ -95,6 +108,13 @@ function NewThreadWithLogin(userToken: string) {
 	);
 }
 
+/**
+ * A page to create new threads.
+ * 
+ * Checks the authorization status of the user before deciding which homepage to display.
+ * 
+ * @returns {JSX.Element}
+ */
 function NewThread() {
 	const { userToken } = useAuth();
 

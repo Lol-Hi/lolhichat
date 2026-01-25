@@ -17,6 +17,10 @@ import { useApiClient } from "../hooks/useApiClient";
 import { SearchResponse } from "../api/apiResponse";
 import { errorMessage } from "../helpers/errorMessage";
 
+/**
+ * A page to display the results from a search
+ * @returns {JSX.Element}
+ */
 function SearchResults() {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const origQuery = searchParams.get("search");;
@@ -26,6 +30,12 @@ function SearchResults() {
 
 	const apiClient = useApiClient();
 
+	/**
+	 * Search request handler. 
+	 * 
+	 * Sends a search POST request to the backend,
+	 * and wraps each result in a ThreadCard object to be displayed on the page.
+	 */
 	async function fetchSearch() {
 		try {
 			const payload = JSON.stringify({ query });
@@ -39,12 +49,20 @@ function SearchResults() {
 		}
 	};
 
+	/**
+	 * Call search request handler on page load. 
+	 */
 	useEffect(() => {
 		if(origQuery !== "") {
 			fetchSearch();
 		}
 	}, []);
 
+	/**
+	 * Call search request handler on form submission.
+	 * 
+	 * @param {React.FormEvent<HTMLFormElement>} event The form submission event that triggered this function.
+	 */
 	function handleSearch(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		if(query !== null && query !== "") {

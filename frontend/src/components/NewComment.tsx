@@ -15,6 +15,12 @@ import { useAuth } from "../hooks/useAuth";
 import { useApiClient } from "../hooks/useApiClient";
 import { errorMessage } from "../helpers/errorMessage";
 
+/**
+ * A component to allow logged-in users to draft comments.
+ * @param {string} userToken The JWT user token of the curent session.
+ * @param {string} urlCode The url code of the curren thread.
+ * @returns 
+ */
 function NewCommentWithLogin(userToken: string, urlCode: string) {
 	const apiClient = useApiClient();
 
@@ -22,6 +28,14 @@ function NewCommentWithLogin(userToken: string, urlCode: string) {
 	const [ errorMsg, setErrorMsg ] = useState("");
 	const [ commentError, setCommentError ] = useState(false);
 
+	/**
+	 * New comment handler.
+	 * 
+	 * Sends a new comment POST request to the backend,
+	 * and refreshes the page on success.
+	 * 
+	 * @param {React.FormEvent<HTMLFormElement>} event The form submission event which triggered this function.
+	 */
 	async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		setErrorMsg("");
@@ -64,6 +78,12 @@ function NewCommentWithLogin(userToken: string, urlCode: string) {
 	);
 }
 
+/**
+ * A component to check if users are logged in before allowing them to draft comments.
+ * @param {object} props
+ * @param {string} props.urlCode The current url code of the thread. 
+ * @returns {JSX.Element}
+ */
 function NewComment({ urlCode }: { urlCode: string  }) {
 	const { userToken } = useAuth();
 

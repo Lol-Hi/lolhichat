@@ -6,9 +6,16 @@ import IconButton from "@mui/material/IconButton";
 import Input from "@mui/material/Input";
 import SearchIcon from "@mui/icons-material/Search";
 
+/**
+ * A simple search bar to be placed in the navigation bar.
+ * @returns {JSX.Element}
+ */
 function QuickSearchBar() {
 	const navigate = useNavigate();
 
+	/**
+	 * Navigate to the search page to process the search request.
+	 */
 	function handleSearch() {
 		navigate("/search");
 	}

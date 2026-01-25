@@ -1,11 +1,12 @@
 package main
 
 import (
-	"github.com/joho/godotenv"
-	"log"
-	"backend/internal/models"
+	"backend/internal/database"
 	"backend/internal/helpers"
 	"backend/internal/routes"
+	"log"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
@@ -14,7 +15,7 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
-	dbErr := models.ConnectDatabase()
+	dbErr := database.ConnectDatabase()
 	if dbErr != nil {
 		log.Fatal("Error connecting to database")
 	}

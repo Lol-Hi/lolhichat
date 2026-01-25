@@ -1,5 +1,9 @@
 import React from "react";
 
+/**
+ * A token component to direct users that are not logged in to the login page.
+ * @returns {JSX.Element}
+ */
 function DirectToLogin() {
 	return (
 		<div>

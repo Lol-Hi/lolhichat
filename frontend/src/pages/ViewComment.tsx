@@ -3,6 +3,10 @@ import { useParams } from 'react-router-dom';
 
 import Typography from "@mui/material/Typography";
 
+/**
+ * A page to view the comment and its replies.
+ * @returns {JSX.Element}
+ */
 function ViewComment() {
 	const { urlCode } = useParams();
 

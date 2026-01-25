@@ -16,6 +16,10 @@ import { errorMessage } from "../helpers/errorMessage";
 
 import { useApiClient } from "../hooks/useApiClient";
 
+/**
+ * A page for prospective users to register for an account
+ * @returns {JSX.Element}
+ */
 function SignUp() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
@@ -29,6 +33,14 @@ function SignUp() {
 	const navigate = useNavigate();
 	const apiClient = useApiClient();
 
+	/**
+	 * New account handler.
+	 * 
+	 * Sends a sign-up POST request to the backend,
+	 * then reroute the user to the login page.
+	 * 
+	 * @param {React.FormEvent<HTMLFormElement>} event The form submission event that triggered this function.
+	 */
 	async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		setErrorMsg("");

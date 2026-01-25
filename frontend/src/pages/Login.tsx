@@ -17,6 +17,10 @@ import { useApiClient } from "../hooks/useApiClient";
 import { errorMessage } from "../helpers/errorMessage";
 import { LoginResponse } from "../api/apiResponse";
 
+/**
+ * A page for users to log in to their account
+ * @returns {JSX.Element}
+ */
 function Login() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
@@ -29,6 +33,15 @@ function Login() {
 	const { login } = useAuth();
 	const apiClient = useApiClient();
 
+	/**
+	 * Login handler.
+	 * 
+	 * Sends a login POST request to the backend, 
+	 * updates the authorization status of the current user session,
+	 * and reroutes the user to the homepage.
+	 * 
+	 * @param {React.FormEvent<HTMLFormElement>} event The form submission event that triggered this function.
+	 */
 	async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		setErrorMsg("");

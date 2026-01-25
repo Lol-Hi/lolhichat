@@ -17,6 +17,12 @@ import { useApiClient } from "../hooks/useApiClient";
 import { ThreadCommentResponse, LikeStatusResponse } from "../api/apiResponse";
 import { errorMessage } from "../helpers/errorMessage";
 
+/**
+ * A card to store information about the comment.
+ * @param {object} props
+ * @param {ThreadCommentResponse} props.tcResponse The contents of the comment.
+ * @returns {JSX.Element}
+ */
 function CommentCard({ tcResponse }: { tcResponse: ThreadCommentResponse }) {
 	const apiClient = useApiClient();
 	const { userToken } = useAuth();
@@ -25,6 +31,12 @@ function CommentCard({ tcResponse }: { tcResponse: ThreadCommentResponse }) {
 	const [ numLikes, setNumLikes ] = useState(tcResponse.likes);
 	const [ error, setError ] = useState(false);
 
+	/**
+	 * Fetches whether the user has liked the post (if user is logged in) on load.
+	 * 
+	 * Sends a like status GET request to the backend,
+	 * and updates the liked status of the current comment.
+	 */
 	useEffect(() => {
 		const fetchLikeStatus = async () => {
 			setError(false);
@@ -42,6 +54,13 @@ function CommentCard({ tcResponse }: { tcResponse: ThreadCommentResponse }) {
 		}
 	}, [])
 
+	/**
+	 * Like/Unlike handler.
+	 * 
+	 * Depending on the current liked status,
+	 * sends a like/unlike POST request to the backend,
+	 * and updates the current liked status and the number of likes received by the current post.
+	 */
 	async function handleLike() {
 		if(liked) {
 			setLiked(false);

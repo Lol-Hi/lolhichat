@@ -1,3 +1,4 @@
+// Package middleware contains the middleware that processes the headers of the HTTP request.
 package middleware
 
 import (
@@ -5,8 +6,7 @@ import (
 )
 
 func SetupHeaders() gin.HandlerFunc {
-	return func (c *gin.Context) {
+	return func(c *gin.Context) {
 		c.Next()
 	}
 }
-

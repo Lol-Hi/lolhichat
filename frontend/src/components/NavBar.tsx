@@ -10,6 +10,12 @@ import QuickSearchBar from "../components/QuickSearchBar";
 import Logout from "../components/Logout";
 import { useAuth } from "../hooks/useAuth"
 
+/**
+ * A standard navigation bar for the app.
+ * 
+ * Allows users to search for threads, create a new thread, and login/logout.
+ * @returns {JSX.Element}
+ */
 function NavBar() {
 	const { userToken } = useAuth();
 	return (

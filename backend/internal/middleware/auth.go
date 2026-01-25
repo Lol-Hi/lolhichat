@@ -1,14 +1,18 @@
+// Package middleware contains the middleware that processes the headers of the HTTP request.
 package middleware
 
 import (
+	"backend/internal/helpers"
 	"net/http"
 	"strings"
+
 	"github.com/gin-gonic/gin"
-	"backend/internal/helpers"
 )
 
+// AuthMiddleware returns a function that takes in the context of the http request and handles the authorization header.
+// The function retrieves the JWT user token from the authorization header, and parses it to retrieve the encoded username.
 func AuthMiddleware() gin.HandlerFunc {
-	return func (c *gin.Context) {
+	return func(c *gin.Context) {
 		authHeader := c.GetHeader("Authorization")
 		if authHeader == "" {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Missing authorization header"})
@@ -34,4 +38,3 @@ func AuthMiddleware() gin.HandlerFunc {
 		c.Next()
 	}
 }
-

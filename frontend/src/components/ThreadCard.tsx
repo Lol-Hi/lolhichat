@@ -10,6 +10,12 @@ import Typography from "@mui/material/Typography";
 
 import { SearchResponse } from "../api/apiResponse";
 
+/**
+ * A card to store information about the thread.
+ * @param {object} props
+ * @param {SearchResponse} props.threadResponse The information about the thread.
+ * @returns {JSX.Element}
+ */
 function ThreadCard({ threadResponse }: { threadResponse: SearchResponse }) {
 	const navigate = useNavigate();
 	

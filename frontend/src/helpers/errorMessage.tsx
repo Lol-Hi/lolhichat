@@ -1,6 +1,11 @@
 import { AxiosError } from "axios";
 import { ErrorResponse } from "../api/apiResponse";
 
+/**
+ * Extracts the error message from the error produced.
+ * @param {AxiosError} err The error produced by the backend.
+ * @returns {string} The error message associated with the error.
+ */
 export function errorMessage(err: AxiosError): string {
 	if(err.response) {
 		const errorData = err.response.data as ErrorResponse;

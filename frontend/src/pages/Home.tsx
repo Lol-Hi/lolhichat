@@ -7,6 +7,10 @@ import { useApiClient } from "../hooks/useApiClient";
 import { HomeResponse } from "../api/apiResponse";
 import { errorMessage } from "../helpers/errorMessage";
 
+/**
+ * A default homepage when the user has not logged in.
+ * @returns {JSX.Element}
+ */
 function HomeNoLogin() {
 	return (
 		<div>
@@ -18,6 +22,11 @@ function HomeNoLogin() {
 	);
 }
 
+/**
+ * A homepage that greets the user after logging in.
+ * @param {string} userToken The JWT user token of the current user session.
+ * @returns {JSX.Element}
+ */
 function HomeWithLogin(userToken: string) {
 	const [username, setUsername] = useState("");
 	const [errorMsg, setErrorMsg] = useState("");
@@ -48,6 +57,13 @@ function HomeWithLogin(userToken: string) {
 	);
 }
 
+/**
+ * The homepage of lolhichat.
+ * 
+ * Checks the authorization status of the user before deciding which homepage to display.
+ * 
+ * @returns {JSX.Element}
+ */
 function Home() {
 	const { userToken } = useAuth();
 	

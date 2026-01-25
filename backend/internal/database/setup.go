@@ -1,15 +1,19 @@
-package models
+// Package database contains functions that sets up the database containing the backend data
+package database
 
 import (
+	"errors"
 	"fmt"
+	"os"
+
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"os"
-	"errors"
 )
 
+// DB is the database object to be accessed
 var DB *gorm.DB
 
+// ConnectDatabase connects the app to the postgres database.
 func ConnectDatabase() error {
 	dsn := fmt.Sprintf(
 		"host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
@@ -25,8 +29,6 @@ func ConnectDatabase() error {
 		return errors.New("Error connecting to database")
 	}
 
-
 	DB = database
 	return nil
 }
-

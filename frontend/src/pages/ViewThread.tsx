@@ -20,6 +20,10 @@ import { useApiClient } from "../hooks/useApiClient";
 import { ViewThreadResponse } from "../api/apiResponse";
 import { errorMessage } from "../helpers/errorMessage";
 
+/**
+ * A page to view the thread and its comments.
+ * @returns {JSX.Element}
+ */
 function ViewThread() {
 	const { urlCode } = useParams();
 
@@ -29,6 +33,15 @@ function ViewThread() {
 
 	const apiClient = useApiClient();
 
+	/**
+	 * Fetches information about the thread on load.
+	 * 
+	 * Sends a view thread GET request to the backend
+	 * in order to set the thread info and comments for the page.
+	 * 
+	 * @param {AxiosInstance} apiClient The current api client of the context.
+	 * @param {string} urlCode The url code of the current thread.
+	 */
 	useEffect(() => {
 		const fetchThread = async () => {
 			try {
