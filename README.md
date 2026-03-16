@@ -67,7 +67,7 @@ This project is split up into 2 parts:
     DB_NAME="lolhichat"
     DB_PORT="5432"
 
-    JWT_SECRET_KEY="rv9unfvedwnvund^%$#"
+    JWT_SECRET_KEY=<your-secret-key>
     ```
 4.  Install the dependencies and run the go app with
     ```bash
